@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de Compras{% endblock %}
+
+{% block content %}
+    <h2>Lista de Compras</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Compra Nro</th>
+                <th>Fecha</th>
+                <th>Cliente</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>Detalles de la compra</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for purchase in purchases %}
+                <tr>
+                    <td>{{ purchase.pk }}</td>
+                    <td>{{ purchase.delivery_date }}</td>
+                    <td>{{ purchase.client.full_name }}</td>  <!-- Asumiendo que 'client' es una relación ForeignKey -->
+                    <td>${{ purchase.total_price }}</td>
+                    <td>{{ purchase.get_purchase_status_display }}</td>
+                    <td><a href="{% url 'purchase_detail' purchase.pk %}">Ver Detalle</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

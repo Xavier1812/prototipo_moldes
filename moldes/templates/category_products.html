@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Productos en {{ category.category_name }}</h2>
+<ul>
+    {% for product in products %}
+        <li>{{ product.name }}</li>
+        <ul>Material: {{ product.get_material_display }}</ul>
+        <ul>Descripcion: {{ product.description }}</ul>
+    {% endfor %}
+</ul>
+<a href="{% url 'home' %}">Volver al inicio</a>
+{% endblock %}

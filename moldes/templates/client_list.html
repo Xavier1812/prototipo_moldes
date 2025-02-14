@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de Clientes{% endblock %}
+
+{% block content %}
+    <h2>Clientes</h2>
+    <a href="{% url 'client_create' %}" class="btn btn-primary">Agregar Nuevo Cliente</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+                <th>Direccion</th>
+                <th>Negocio</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for client in clients %}
+                <tr>
+                    <td>{{ client.full_name }}</td>
+                    <td>{{ client.email }}</td>
+                    <td>{{ client.cellphone }}</td>
+                    <td>{{ client.address }}</td>
+                    <td>{{ client.bussiness }}</td>
+                    <td>
+                        <a href="{% url 'client_edit' client.pk %}" class="btn btn-primary">Editar</a>
+                        <a href="{% url 'client_delete' client.pk %}" class="btn btn-danger">Eliminar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

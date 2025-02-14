@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Agregar Nuevo Cliente{% endblock %}
+
+{% block content %}
+    <h2>Agregar Nuevo Cliente</h2>
+    
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Agregar Cliente</button>
+    </form>
+
+    <a href="{% url 'client_list' %}" class="btn btn-secondary">Cancelar</a>
+{% endblock %}
