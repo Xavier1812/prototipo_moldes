@@ -4,6 +4,8 @@
 
 {% block content %}
     <h2>Lista de Compras</h2>
+    <!-- Botón para agregar nueva compra -->
+    <a href="{% url 'create_purchase' %}" class="btn btn-primary">Nueva Compra</a>
 
     <table class="table">
         <thead>

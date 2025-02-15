@@ -5,6 +5,7 @@ from django.contrib.auth.views import LoginView
 from .forms import ClientForm
 from django.views.generic import DetailView
 from django.forms import inlineformset_factory
+from .forms import PurchaseForm, PurchaseItemFormSet
 
 def home(request):
     categories = Category.objects.filter(shows_in_home=True)
@@ -80,3 +81,28 @@ class PurchaseDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['items'] = self.object.items.all()  # Obtiene los PurchaseItem relacionados con la compra
         return context
+
+####
+
+def create_purchase(request):
+    if request.method == 'POST':
+        form = PurchaseForm(request.POST)
+        formset = PurchaseItemFormSet(request.POST)
+
+        print("Datos del formulario principal:", request.POST)
+        print("Datos del formset:", request.POST.getlist('form-0-product'))  # Verifica que haya múltiples productos
+
+        if form.is_valid() and formset.is_valid():
+            purchase = form.save()
+            formset.instance = purchase  # Asigna la compra al formset antes de guardar
+            formset.save()
+            purchase.recalculate_total()
+            return redirect('purchase_list')
+        else:
+            print("Errores en el form:", form.errors)
+            print("Errores en el formset:", formset.errors)
+    else:
+        form = PurchaseForm()
+        formset = PurchaseItemFormSet()
+
+    return render(request, 'purchase_form.html', {'form': form, 'formset': formset})

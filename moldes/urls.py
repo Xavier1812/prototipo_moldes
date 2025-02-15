@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.views import LoginView
 from django.urls import path
 
-from .views import home, category_products, admin_login, client_list, client_create, client_edit, client_delete, purchase_list, PurchaseDetailView
+from .views import home, category_products, admin_login, client_list, client_create, client_edit, client_delete, purchase_list, PurchaseDetailView, create_purchase
 
 urlpatterns = [
     path('', home, name='home'),  # Página de inicio con categorías
@@ -16,4 +16,5 @@ urlpatterns = [
     #URLS PARA COMPRAS
     path('purchases/', purchase_list, name='purchase_list'),  # Mostrar todas las compras
     path('purchases/<int:pk>/', PurchaseDetailView.as_view(), name='purchase_detail'), #Detalle de compras
+    path('nueva-compra/', create_purchase, name='create_purchase'),
 ]
