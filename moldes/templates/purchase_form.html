@@ -49,8 +49,8 @@
     <button type="submit" class="btn btn-primary">Guardar Compra</button>
 </form>
 
-<script>
-    function updateTotals() {
+<script> // Aqui empieza el codigo de JavaScript
+     function updateTotals() {
         var total = 0;
         var rows = document.querySelectorAll(".product-row");
         rows.forEach(function(row) {
@@ -113,6 +113,6 @@
     });
 
     updateTotals();
-</script>
+</script>  <!-- Aqui termina codigo de JavaScript -->
 
 {% endblock %}

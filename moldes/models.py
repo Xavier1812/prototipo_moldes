@@ -3,10 +3,14 @@ from django.core.validators import MinValueValidator, RegexValidator
 from django.core.exceptions import ValidationError
 from decimal import Decimal, ROUND_HALF_UP
 
+def upload_to_category(instance, filename):
+    return f'Categoria/{instance.category_name}/{filename}'
+
 #Define la categoria en la que los productos se clasificaran.
 class Category(models.Model): 
     category_name = models.CharField(max_length=255, unique=True)
     shows_in_home = models.BooleanField(default=False, verbose_name='¿Mostrar categoria en home?') #Determina si la categoria se exhibira o no en el home para el publico general.
+    category_image = models.ImageField(upload_to=upload_to_category, null=True, blank=True, verbose_name="Imagen de la Categoría")
     def __str__(self):
         return self.category_name
     

@@ -1,13 +1,46 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Productos en {{ category.category_name }}</h2>
-<ul>
+<h2 class="text-center mb-4">Productos en {{ category.category_name }}</h2>
+<ul class="list-group">
     {% for product in products %}
-        <li>{{ product.name }}</li>
-        <ul>Material: {{ product.get_material_display }}</ul>
-        <ul>Descripcion: {{ product.description }}</ul>
+        <li class="list-group-item mb-4">
+            <div class="row">
+                <!-- Bloque de nombre, material y descripción en columnas separadas -->
+                <div class="col-md-8">
+                    <div class="mb-3">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                    </div>
+                    <div class="mb-3">
+                        <p><strong>Material:</strong> {{ product.get_material_display }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <p><strong>Descripción:</strong> {{ product.description }}</p>
+                    </div>
+                </div>
+
+                <!-- Bloque de imagen a la derecha -->
+                <div class="col-md-4">
+                    {% for image in product.images.all %}
+                        <div class="product-image mb-2">
+                            <img src="{{ image.image.url }}" alt="Imagen de {{ product.name }}" class="img-fluid rounded">
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Botón verde para WhatsApp -->
+            <div class="text-center mt-3">
+                <a href="https://wa.me/593983773731" class="btn btn-success" target="_blank" title="Pedir este producto por WhatsApp">
+                    Pedir por WhatsApp
+                </a>
+            </div>
+        </li>
     {% endfor %}
 </ul>
-<a href="{% url 'home' %}">Volver al inicio</a>
+
+<div class="text-center mt-4">
+    <a href="{% url 'home' %}" class="btn btn-primary">Volver al inicio</a>
+</div>
+
 {% endblock %}
